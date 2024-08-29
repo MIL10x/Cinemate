@@ -1,0 +1,32 @@
+API Key: 37c673be42e243933d8573dbcb790693
+
+Access Token Auth : eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzN2M2NzNiZTQyZTI0MzkzM2Q4NTczZGJjYjc5MDY5MyIsIm5iZiI6MTcyNDY2MjQ5Ni4wMTU3NDcsInN1YiI6IjY2Y2MzNGFkZGNhZDc5M2I0MzNkMjgyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nqauHPQUDDW131_wbfx8n8oWDoKNiK_TyF34x4Hzing
+
+Api request Link :https://api.themoviedb.org/3/movie/550?api_key=37c673be42e243933d8573dbcb790693
+
+movie detail : 'https://api.themoviedb.org/3/movie/{movie_id}?language=en-US
+
+Popular : https://api.themoviedb.org/3/movie/popular
+
+Home : https://api.themoviedb.org/3/movie/now_playing
+
+upcoming : https://api.themoviedb.org/3/movie/upcoming
+
+Top_rated : https://api.themoviedb.org/3/movie/top_rated
+
+search : https://api.themoviedb.org/3/search/movie?query={Movie.name}
+
+access Method
+const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzN2M2NzNiZTQyZTI0MzkzM2Q4NTczZGJjYjc5MDY5MyIsIm5iZiI6MTcyNDY2MjQ5Ni4wMTU3NDcsInN1YiI6IjY2Y2MzNGFkZGNhZDc5M2I0MzNkMjgyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nqauHPQUDDW131_wbfx8n8oWDoKNiK_TyF34x4Hzing",
+      },
+    };
+    async function fetchapi() {
+      const response = await fetch(
+        "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+        options
+      );}
