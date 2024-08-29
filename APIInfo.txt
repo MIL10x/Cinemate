@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/dev
 Api request Link :https://api.themoviedb.org/3/movie/550?api_key=37c673be42e243933d8573dbcb790693
 
 movie detail : 'https://api.themoviedb.org/3/movie/{movie_id}?language=en-US
@@ -11,3 +15,7 @@ upcoming : https://api.themoviedb.org/3/movie/upcoming
 Top_rated : https://api.themoviedb.org/3/movie/top_rated
 
 search : https://api.themoviedb.org/3/search/movie?query={Movie.name}
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/dev
