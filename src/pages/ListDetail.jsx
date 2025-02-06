@@ -1,9 +1,10 @@
 import { React, useEffect } from "react";
 import { useParams } from "react-router";
 import { useState } from "react";
-const API_KEY = import.meta.env.VITE_API_KEY;
 import cine from "../assets/cine.jpg";
 const ListDetail = () => {
+  const API_KEY = import.meta.env.VITE_API_KEY;
+  console.log(API_KEY);
   const params = useParams();
   const [data, setdata] = useState({});
   const image = data.backdrop_path

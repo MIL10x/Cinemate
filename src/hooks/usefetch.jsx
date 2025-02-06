@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-const API_KEY = import.meta.env.VITE_API_KEY;
 const usefetch = (apipath, quy) => {
   const [data, setdata] = useState([]);
   const lin = `https://api.themoviedb.org/3/${apipath}?language=en-US&page=1&query=${quy}`;
+  const API_KEY = import.meta.env.VITE_API_KEY;
   useEffect(() => {
     const options = {
       method: "GET",

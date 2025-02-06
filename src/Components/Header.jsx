@@ -1,7 +1,7 @@
 import logo from "../assets/logo.png";
 import dayMode from "../assets/dayMode.png";
 import nightMode from "../assets/nightMode.png";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 const Header = () => {
   const navi = useNavigate();
