@@ -3,6 +3,7 @@ import usefetch from "../hooks/usefetch";
 
 const MovieList = ({ apipath }) => {
   const { data: api } = usefetch(apipath);
+
   return (
     <div className="flex flex-wrap">
       {api.map((movie) => (

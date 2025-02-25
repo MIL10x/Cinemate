@@ -8,11 +8,9 @@ export default {
   theme: 
   {
     extend: {
-      screens:{
-      'other':{'min': '640px', 'max': '767px'}
-    },
       fontFamily:{
-        "poppins" : ["popins" , "san-Serif"]
+        "poppins" : ["popins" , "san-Serif"],
+        "Roboto" : ["Roboto" , "san-Serif"]
       }
     },
   },

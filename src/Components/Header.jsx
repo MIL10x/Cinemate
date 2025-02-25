@@ -51,6 +51,11 @@ const Header = () => {
               Upcoming
             </span>
           </NavLink>
+          <NavLink to={"/blog"}>
+            <span className="text-xl font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
+              Blog
+            </span>
+          </NavLink>
         </div>
         <div className="flex items-center gap-6">
           <button className="border-2 shadow-slate-300 p-2 rounded-lg">
