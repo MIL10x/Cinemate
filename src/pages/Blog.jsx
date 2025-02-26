@@ -25,7 +25,7 @@ const Blog = () => {
 
   return (
     <div>
-      <p className=" text-xl my-10 ">
+      <p className=" text-xl my-10 dark:text-white ">
         ✨ This is blog Section you can add your thoughts here👇
       </p>
       <div className="w-full rounded-2xl border-2 border-gray-400 h-auto p-10 mb-10">
