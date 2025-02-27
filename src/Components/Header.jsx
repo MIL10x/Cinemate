@@ -35,7 +35,11 @@ const Header = () => {
   };
   return (
     <>
-      <div className="flex justify-between gap-6 p-5 px-10 items-center shadow-lg  shadow-slate-300 flex-wrap dark:bg-slate-900">
+      <div
+        className={`flex justify-between gap-6 p-5 ${
+          search ? "" : "px-10"
+        } items-center shadow-lg  shadow-slate-300 flex-wrap dark:bg-slate-900`}
+      >
         {!search && (
           <div>
             <Link to={"/"}>
@@ -121,7 +125,7 @@ const Header = () => {
               </button>
             )}
             {search && (
-              <div className="flex w-[450px] h-14 justify-between items-center ">
+              <div className="flex h-14  gap-3 items-center ">
                 <button
                   onClick={() => setsearch(false)}
                   className="border-2 shadow-slate-300 p-2 rounded-lg lg:hidden "

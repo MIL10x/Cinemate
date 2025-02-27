@@ -162,8 +162,8 @@ const ListDetail = () => {
             {data.release_date}
           </p>
           {popup && (
-            <div className="absolute bg-black/25 h-screen w-screen z-50 flex justify-center items-center  backdrop-blur-sm top-0 left-0 ">
-              <div className="relative bg-black flex max-lg:h-screen max-lg:w-screen justify-center items-center max-lg:flex-col max-lg:justify-normal dark:bg-gray-800 rounded-xl w-[70%] p-3 h-[60%]">
+            <div className="absolute bg-black/25 h-[150vh] w-screen z-50 flex justify-center items-center  backdrop-blur-sm top-0 left-0 ">
+              <div className="relative bg-black flex max-lg:h-[150vh] max-lg:w-screen justify-center items-center max-lg:flex-col max-lg:justify-normal dark:bg-gray-800 rounded-xl w-[70%] p-3 h-[60%]">
                 <button
                   className="absolute -top-10 -right-12 max-lg:relative max-lg:top-0 max-lg:left-0 max-lg:flex max-lg:justify-center max-lg:py-5  max-lg:w-full max-lg:z-50   "
                   onClick={() => setpopup(false)}

@@ -94,8 +94,8 @@ const Blog = () => {
         +Addblog
       </button>
       {popup && (
-        <div className="absolute h-screen w-screen flex items-center justify-center bg-black/25 backdrop-blur-sm top-0 left-0 z-50">
-          <div className="relative h-[50%] w-[50%] bg-white rounded-2xl p-10 max-lg:h-screen max-lg:w-screen max-lg:py-40">
+        <div className="absolute h-[200vh] w-screen flex  items-center justify-center bg-black/25 backdrop-blur-sm top-0 left-0 z-50">
+          <div className="relative h-[50%] w-[50%] bg-white rounded-2xl p-10 max-lg:h-[200vh] z-50 max-lg:w-screen max-lg:py-40">
             <button
               className="absolute -top-10 -right-12 max-lg:top-5 max-lg:right-5"
               onClick={() => setpopup(false)}

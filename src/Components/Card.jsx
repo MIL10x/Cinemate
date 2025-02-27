@@ -15,11 +15,11 @@ const Card = ({ movie }) => {
   return (
     <div>
       <Link to={`/movies/${movie.id}`}>
-        <div className="w-[30vh] m-5 h-[45vh]  text-wrap bg-white rounded-xl shadow-2xl dark:bg-slate-700 dark:text-white">
+        <div className="w-[30vh] m-5 h-[45vh] max-lg:w-[90%] max-lg:h-[80vh]  text-wrap bg-white rounded-xl shadow-2xl dark:bg-slate-700 dark:text-white">
           <img src={image} alt="" className="rounded-t-xl shadow-xl" />
 
           <p className="text-xl px-5 py-5 font-bold">{movie.original_title}</p>
-          <p className="px-8 text-lg ">
+          <p className="px-8 text-lg max-lg:text-[1rem] ">
             {data.length > 50 ? jdata + " ...more " : jdata}
           </p>
         </div>
