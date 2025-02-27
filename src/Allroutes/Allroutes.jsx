@@ -4,6 +4,7 @@ import {
   PageNotFound,
   Search,
   Blog,
+  Favourite,
 } from "../pages/Indexp";
 import { Routes, Route } from "react-router-dom";
 
@@ -27,6 +28,7 @@ const Allroutes = () => {
           />
           <Route path="/movies/:id" element={<ListDetail />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/Favourite" element={<Favourite />} />
           <Route path="/Search" element={<Search apipath="search/movie" />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

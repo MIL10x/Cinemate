@@ -2,9 +2,11 @@ import { React, useEffect } from "react";
 import { useParams } from "react-router";
 import { useState } from "react";
 import cine from "../assets/cine.jpg";
-import YouTube from "react-youtube";
+// import { useDispatch } from "react-redux";
+// import { add } from "../store/favouriteslice";
 
 const ListDetail = () => {
+  // const dispatch = useDispatch;
   const API_KEY = import.meta.env.VITE_API_KEY;
   const params = useParams();
   const [data, setdata] = useState({});
@@ -31,7 +33,6 @@ const ListDetail = () => {
       );
       const datam = await response.json();
       setdata(datam);
-      console.log(datam);
     }
 
     if (params.id) {
@@ -57,7 +58,6 @@ const ListDetail = () => {
       );
       const videodatahit = await response.json();
       setvideodata(videodatahit.results);
-      console.log(videodatahit);
     }
 
     fetchVideoData();
@@ -69,9 +69,10 @@ const ListDetail = () => {
 
   return (
     <>
-      <section className="grid gap-20 grid-cols-2 dark:text-white mt-20">
+      <section className="grid gap-20 grid-cols-2 max-lg:grid-cols-1 dark:text-white mt-20">
         <img src={image} alt="" />
         <div>
+          {/* <button onClick={() => dispatch(add(data))}>add</button> */}
           <p className="font-bold text-3xl">{data.original_title}</p>
           <p className="my-2">{data.overview}</p>
           {data.genres ? (
@@ -161,14 +162,17 @@ const ListDetail = () => {
             {data.release_date}
           </p>
           {popup && (
-            <div className="absolute bg-black/25 h-screen w-screen z-50 flex justify-center items-center backdrop-blur-sm top-0 left-0 ">
-              <div className="relative bg-black flex  justify-center items-center dark:bg-gray-800 rounded-xl w-[70%] p-3 h-[60%]">
+            <div className="absolute bg-black/25 h-screen w-screen z-50 flex justify-center items-center  backdrop-blur-sm top-0 left-0 ">
+              <div className="relative bg-black flex max-lg:h-screen max-lg:w-screen justify-center items-center max-lg:flex-col max-lg:justify-normal dark:bg-gray-800 rounded-xl w-[70%] p-3 h-[60%]">
                 <button
-                  className="absolute -top-10 -right-12"
+                  className="absolute -top-10 -right-12 max-lg:relative max-lg:top-0 max-lg:left-0 max-lg:flex max-lg:justify-center max-lg:py-5  max-lg:w-full max-lg:z-50   "
                   onClick={() => setpopup(false)}
                 >
+                  <p className="text-2xl text-white p-2 border-2 border-white rounded-2xl lg:hidden">
+                    close
+                  </p>
                   <svg
-                    class="size-12 text-gray-800 dark:text-white"
+                    class="size-12 text-gray-800 dark:text-white max-lg:hidden "
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -183,19 +187,29 @@ const ListDetail = () => {
                     />
                   </svg>
                 </button>
-                <div className=" w-[50%] h-[50%] flex justify-center items-center">
-                  <YouTube videoId={videokey} className=" z-10 " />
+                <div className=" w-[40%] h-[50%]  flex justify-center items-center max-lg:w-full max-lg:h-[50%] my-5 bg-white ">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={`https://www.youtube.com/embed/${videokey}`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                    }}
+                  ></iframe>
                 </div>
-                <div className="bg-black dark:bg-gray-800 w-fit p-3 h-[50%] overflow-hidden overflow-y-scroll ">
+                <div className="bg-black dark:bg-gray-800 w-fit p-3 h-[50%] max-lg:h-fit max-lg:w-full overflow-hidden overflow-y-scroll  ">
                   <div>
                     {videodata.length > 0 ? (
                       <div>
                         <h3 className="text-white">Videos:</h3>
-                        <ul className=" flex flex-col h-full p-3 gap-3 w-fit">
+                        <ul className=" flex flex-col h-full p-3 gap-3 w-fit max-lg:w-full ">
                           {videodata.map((video, index) => (
                             <li
                               key={index}
-                              className="bg-blue-400 rounded-xl p-3
+                              className="bg-blue-400  rounded-xl p-3
                           "
                             >
                               <button

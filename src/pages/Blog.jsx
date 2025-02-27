@@ -23,6 +23,12 @@ const Blog = () => {
 
   console.log(blogstore);
 
+  const handleclose = (name) => {
+    const filterdata = blogstore.filter((data) => data.Name !== name);
+    setblogstore(filterdata);
+    console.log(filterdata);
+  };
+
   return (
     <div>
       <p className=" text-xl my-10 dark:text-white ">
@@ -52,10 +58,32 @@ const Blog = () => {
       </div>
       {blogstore.length > 0
         ? blogstore.map((_data) => (
-            <div className="w-full rounded-2xl border-2 border-gray-400 h-auto p-10 mb-10">
+            <div className="relative w-full rounded-2xl border-2 border-gray-400 h-auto p-10 mb-10">
               <p>{_data.Name}</p>
               <p className="my-5">{_data.Title}</p>
               <p>{_data.Sugesstion}</p>
+              <button
+                onClick={() => handleclose(_data.Name)}
+                className="absolute top-5 right-5"
+              >
+                <svg
+                  className="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18 17.94 6M18 18 6.06 6"
+                  />
+                </svg>
+              </button>
             </div>
           ))
         : ""}
@@ -67,9 +95,9 @@ const Blog = () => {
       </button>
       {popup && (
         <div className="absolute h-screen w-screen flex items-center justify-center bg-black/25 backdrop-blur-sm top-0 left-0 z-50">
-          <div className="relative h-[50%] w-[50%] bg-white rounded-2xl p-10">
+          <div className="relative h-[50%] w-[50%] bg-white rounded-2xl p-10 max-lg:h-screen max-lg:w-screen max-lg:py-40">
             <button
-              className="absolute -top-10 -right-12"
+              className="absolute -top-10 -right-12 max-lg:top-5 max-lg:right-5"
               onClick={() => setpopup(false)}
             >
               <svg
