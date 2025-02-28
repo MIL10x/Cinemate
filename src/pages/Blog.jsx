@@ -90,11 +90,12 @@ const Blog = () => {
         onClick={() => setpopup(true)}
         className="border-2 border-gray-400 rounded-2xl mt-3 p-1.5"
       >
-        +Addblog
+        <p>+ Add Blog</p>
       </button>
+
       {popup && (
-        <div className="absolute dark:text-black h-[200vh] w-screen  flex items-center justify-center bg-black/25 backdrop-blur-sm top-0 left-0 z-50">
-          <div className="relative h-[50%] w-[50%] bg-white rounded-2xl max-lg:rounded-none p-10 max-lg:h-[200vh] z-50 max-lg:w-screen max-lg:py-40">
+        <div className="absolute dark:text-black h-screen max-lg:h-[200vh] w-screen flex items-center justify-center bg-black/25 backdrop-blur-sm top-0 left-0 z-50">
+          <div className="relative h-[50%] w-[50%] bg-white rounded-2xl max-lg:rounded-none p-10 max-lg:h-[100vh] z-50 max-lg:w-screen max-lg:py-40">
             <button
               className="absolute -top-10 -right-12 max-lg:top-5 max-lg:right-5"
               onClick={() => setpopup(false)}
@@ -149,7 +150,7 @@ const Blog = () => {
               onClick={handlesubmit}
               className=" text-white bg-blue-500 p-3 rounded-2xl "
             >
-              Add blog{" "}
+              Add Blog
             </button>
           </div>
         </div>
