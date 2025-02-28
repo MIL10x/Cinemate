@@ -26,6 +26,7 @@ const Header = () => {
     event.preventDefault();
     const dataofsearch = searchdata.current.value;
     navi(`/search?q=${dataofsearch}`);
+    searchdata.current.value = "";
   };
   return (
     <>
