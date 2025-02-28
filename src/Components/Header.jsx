@@ -22,12 +22,6 @@ const Header = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [day]);
-  const handlechange = (event) => {
-    event.preventDefault();
-    const fi = event.target.search.value;
-    event.target.reset();
-    navi(`/search?q=${fi}`);
-  };
   const handlesearchdata = (event) => {
     event.preventDefault();
     const dataofsearch = searchdata.current.value;
@@ -90,24 +84,102 @@ const Header = () => {
               />
             </button>
           )}
-          <form onSubmit={handlechange}>
-            <input
-              type="text"
-              name="search"
-              placeholder="🎬Name👉Search📦"
-              className={
-                day
-                  ? " rounded-3xl p-2 w-60 ps-7 outline-none max-lg:hidden"
-                  : "search p-2 w-60 ps-7 max-lg:hidden"
-              }
-            />
-            {!search && (
+          <input
+            type="text"
+            name="search"
+            ref={searchdata}
+            placeholder="🎬Name👉Search📦"
+            className={
+              day
+                ? " rounded-3xl p-2 w-60 ps-7 outline-none max-lg:hidden"
+                : "search p-2 w-60 ps-7 max-lg:hidden"
+            }
+          />
+          <button
+            onClick={handlesearchdata}
+            className="border-2 shadow-slate-300 p-2 rounded-lg max-lg:hidden "
+          >
+            <svg
+              className="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="2"
+                d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+              />
+            </svg>
+          </button>
+          {!search && (
+            <button
+              onClick={() => setsearch(true)}
+              className="border-2 shadow-slate-300 p-2 rounded-lg lg:hidden "
+            >
+              <svg
+                className="w-6 h-6 text-gray-500 dark:text-white "
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </button>
+          )}
+          {search && (
+            <div className="flex h-14  gap-3 items-center ">
               <button
-                onClick={() => setsearch(true)}
+                onClick={() => setsearch(false)}
                 className="border-2 shadow-slate-300 p-2 rounded-lg lg:hidden "
               >
                 <svg
-                  className="w-6 h-6 text-gray-500 dark:text-white "
+                  className="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 12h14M5 12l4-4m-4 4 4 4"
+                  />
+                </svg>
+              </button>
+              <input
+                type="text"
+                name="search"
+                ref={searchdata}
+                placeholder="🎬Name👉Search📦"
+                className={
+                  day
+                    ? " rounded-3xl p-2 w-60 ps-7 outline-none "
+                    : "search p-2 w-60 ps-7 "
+                }
+              />
+              <button
+                onClick={handlesearchdata}
+                className="border-2 shadow-slate-300 p-2 rounded-lg lg:hidden "
+              >
+                <svg
+                  className="w-6 h-6 text-gray-800 dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -123,66 +195,8 @@ const Header = () => {
                   />
                 </svg>
               </button>
-            )}
-            {search && (
-              <div className="flex h-14  gap-3 items-center ">
-                <button
-                  onClick={() => setsearch(false)}
-                  className="border-2 shadow-slate-300 p-2 rounded-lg lg:hidden "
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 12h14M5 12l4-4m-4 4 4 4"
-                    />
-                  </svg>
-                </button>
-                <input
-                  type="text"
-                  name="search"
-                  ref={searchdata}
-                  placeholder="🎬Name👉Search📦"
-                  className={
-                    day
-                      ? " rounded-3xl p-2 w-60 ps-7 outline-none "
-                      : "search p-2 w-60 ps-7 "
-                  }
-                />
-                <button
-                  onClick={handlesearchdata}
-                  className="border-2 shadow-slate-300 p-2 rounded-lg lg:hidden "
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-width="2"
-                      d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
-                    />
-                  </svg>
-                </button>
-              </div>
-            )}
-          </form>
+            </div>
+          )}
           {!search && (
             <button
               onClick={() => {
