@@ -26,11 +26,10 @@ const Blog = () => {
   const handleclose = (name) => {
     const filterdata = blogstore.filter((data) => data.Name !== name);
     setblogstore(filterdata);
-    console.log(filterdata);
   };
 
   return (
-    <div>
+    <div className="dark:text-white">
       <p className=" text-xl my-10 dark:text-white ">
         ✨ This is blog Section you can add your thoughts here👇
       </p>
@@ -94,14 +93,14 @@ const Blog = () => {
         +Addblog
       </button>
       {popup && (
-        <div className="absolute h-[200vh] w-screen flex  items-center justify-center bg-black/25 backdrop-blur-sm top-0 left-0 z-50">
-          <div className="relative h-[50%] w-[50%] bg-white rounded-2xl p-10 max-lg:h-[200vh] z-50 max-lg:w-screen max-lg:py-40">
+        <div className="absolute dark:text-black h-[200vh] w-screen  flex items-center justify-center bg-black/25 backdrop-blur-sm top-0 left-0 z-50">
+          <div className="relative h-[50%] w-[50%] bg-white rounded-2xl max-lg:rounded-none p-10 max-lg:h-[200vh] z-50 max-lg:w-screen max-lg:py-40">
             <button
               className="absolute -top-10 -right-12 max-lg:top-5 max-lg:right-5"
               onClick={() => setpopup(false)}
             >
               <svg
-                className="size-12 text-gray-800 dark:text-white"
+                className="size-12 text-gray-800 "
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

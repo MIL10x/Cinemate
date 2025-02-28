@@ -73,11 +73,11 @@ const Header = () => {
               Blog
             </span>
           </NavLink>
-          {/* <NavLink to={"/Favourite"}>
+          <NavLink to={"/Favourite"}>
             <span className="text-xl font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
               Favourite
             </span>
-          </NavLink> */}
+          </NavLink>
         </div>
         <div className="flex items-center gap-3">
           {!search && (
@@ -294,7 +294,7 @@ const Header = () => {
                   Blog
                 </span>
               </NavLink>
-              {/* <NavLink
+              <NavLink
                 to={"/Favourite"}
                 onClick={() => {
                   setmenu(false);
@@ -304,7 +304,7 @@ const Header = () => {
                 <span className="text-xl font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
                   Favourite
                 </span>
-              </NavLink> */}
+              </NavLink>
             </div>
           )}
         </div>

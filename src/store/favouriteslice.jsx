@@ -12,7 +12,7 @@ const favouriteslice = createSlice({
     },
     remove(state, action) {
       const updateList = state.favourlist.filter(
-        (item) => item.Id !== action.payload.Id
+        (item) => item.id !== action.payload.id
       );
       return { ...state, favourlist: updateList };
     },

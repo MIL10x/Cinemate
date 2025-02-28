@@ -10,7 +10,6 @@ const Card = ({ movie }) => {
   const data = movie.overview.split(" ");
   const datause = data.length > 50 ? data.slice(0, 50) : data;
   const jdata = datause.join(" ");
-  console.log(datause);
 
   return (
     <div>

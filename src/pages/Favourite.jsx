@@ -1,13 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import Card from "../Components/Card";
 
 const Favourite = () => {
   const item = useSelector((state) => state.favourState.favourlist);
-
+  console.log(item);
   return (
-    <div>
+    <div className="flex flex-wrap">
       {item.map((_data) => (
-        <p className="bg-red-600 h-10 w-10">_data.original_title</p>
+        <Card key={_data.id} movie={_data} />
       ))}
     </div>
   );
