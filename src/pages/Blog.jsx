@@ -1,31 +1,54 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Blog = () => {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [popup, setpopup] = useState(false);
-  const [name, setname] = useState("");
+  const [useridcheck, setuseridcheck] = useState(false);
+  const [close, setclose] = useState(false);
   const [title, setitle] = useState("");
   const [suggestion, setsuggestion] = useState("");
   const [blogstore, setblogstore] = useState([]);
+  const userid = sessionStorage.getItem("userid");
+  useEffect(() => {
+    if (userid) {
+      setuseridcheck(true);
+    } else {
+      setuseridcheck(false);
+    }
+  }, [userid]);
 
-  const handlesubmit = () => {
-    const data = {
-      Name: name,
-      Title: title,
-      Sugesstion: suggestion,
-    };
+  const handleclose = async (name) => {
+    const data = await axios.put(`${BACKEND_URL}/userdata/blogdata/${name}`);
+    console.log(data.status);
+    setclose(!close);
+  };
 
-    setblogstore([data, ...blogstore]);
-    setname("");
+  useEffect(() => {
+    async function fetchdata() {
+      const getdata = await axios.get(`${BACKEND_URL}/userdata/blogdata`);
+      setblogstore(getdata.data);
+    }
+    fetchdata();
+  }, [popup, close]);
+
+  const handlesubmit = async () => {
+    const data = await axios.post(`${BACKEND_URL}/userdata/blogdata`, {
+      accname: userid,
+      heading: title,
+      para: suggestion,
+    });
+    console.log(data.status);
+
     setitle("");
     setsuggestion("");
     setpopup(false);
   };
 
   console.log(blogstore);
-
-  const handleclose = (name) => {
-    const filterdata = blogstore.filter((data) => data.Name !== name);
-    setblogstore(filterdata);
+  const handleacclogin = () => {
+    toast.error("please create an account and login");
   };
 
   return (
@@ -44,7 +67,7 @@ const Blog = () => {
           the narrative of a man suffering from short-term memory loss. Shutter
           Island (2010), directed by Martin Scorsese, blurs reality and illusion
           as two marshals investigate a mental institution, and Donnie Darko
-          (2001) mixes psychological thriller with time travel and teen drama.
+          (2002) mixes psychological thriller with time travel and teen drama.
           Eternal Sunshine of the Spotless Mind (2004) presents a unique love
           story about erasing painful memories, while Interstellar (2014) delves
           into time dilation, black holes, and humanity’s survival. Lastly, The
@@ -57,41 +80,55 @@ const Blog = () => {
       </div>
       {blogstore.length > 0
         ? blogstore.map((_data) => (
-            <div className="relative w-full rounded-2xl border-2 border-gray-400 h-auto p-10 mb-10">
-              <p>{_data.Name}</p>
-              <p className="my-5">{_data.Title}</p>
-              <p>{_data.Sugesstion}</p>
-              <button
-                onClick={() => handleclose(_data.Name)}
-                className="absolute top-5 right-5"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-800 dark:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
+            <div
+              key={_data._id}
+              className="relative w-full rounded-2xl border-2 border-gray-400 h-auto p-10 mb-10"
+            >
+              <p>{_data.accname}</p>
+              <p className="my-5">{_data.heading}</p>
+              <p>{_data.paragraph}</p>
+              {useridcheck && userid == _data.accname && (
+                <button
+                  onClick={() => handleclose(_data._id)}
+                  className="absolute top-5 right-5"
                 >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18 17.94 6M18 18 6.06 6"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    className="w-6 h-6 text-gray-800 dark:text-white"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18 17.94 6M18 18 6.06 6"
+                    />
+                  </svg>
+                </button>
+              )}
             </div>
           ))
         : ""}
-      <button
-        onClick={() => setpopup(true)}
-        className="border-2 border-gray-400 rounded-2xl mt-3 p-1.5"
-      >
-        <p>+ Add Blog</p>
-      </button>
+      {useridcheck ? (
+        <button
+          onClick={() => setpopup(true)}
+          className="border-2 border-gray-400 rounded-2xl mt-3 p-1.5"
+        >
+          <p>+ Add Blog</p>
+        </button>
+      ) : (
+        <button
+          onClick={handleacclogin}
+          className="border-2 border-gray-400 rounded-2xl mt-3 p-1.5"
+        >
+          <p>+ Add Blog</p>
+        </button>
+      )}
 
       {popup && (
         <div className="absolute dark:text-black h-screen max-lg:h-[200vh] w-screen flex items-center justify-center bg-black/25 backdrop-blur-sm top-0 left-0 z-50">
@@ -110,23 +147,14 @@ const Blog = () => {
                 viewBox="0 0 24 24"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             </button>
             <p className="font-Roboto font-bold text-xl">Add blog</p>
             <div className="py-10 flex flex-col gap-5">
-              <p className="text-2xl font-Roboto">Name</p>
-              <input
-                className="border-2 border-gray-300 rounded-xl p-3"
-                type="text"
-                name="Name"
-                value={name}
-                onChange={(e) => setname(e.target.value)}
-                id=""
-              />
               <p className="text-2xl font-Roboto">Title</p>
               <input
                 className="border-2 border-gray-300 rounded-xl p-3"

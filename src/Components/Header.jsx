@@ -4,13 +4,23 @@ import nightMode from "../assets/nightMode.png";
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { usePreventBodyScroll } from "react-haiku";
+import { RiAccountCircleFill } from "react-icons/ri";
+import { toast } from "react-toastify";
 
 const Header = () => {
+  const [mailverify, setmailverify] = useState(false);
   const { isScrollLocked, toggleScrollLock } = usePreventBodyScroll();
+  const [accountpopup, setaccountpopup] = useState(false);
   const navi = useNavigate();
   const [search, setsearch] = useState(false);
   const [menu, setmenu] = useState(false);
   const searchdata = useRef();
+  const userid = sessionStorage.getItem("userid");
+  useEffect(() => {
+    if (!!userid) {
+      setmailverify(true);
+    }
+  }, [userid]);
   const [day, setday] = useState(
     JSON.parse(localStorage.getItem("darkmode")) || false
   );
@@ -22,11 +32,18 @@ const Header = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [day]);
+
   const handlesearchdata = (event) => {
     event.preventDefault();
     const dataofsearch = searchdata.current.value;
     navi(`/search?q=${dataofsearch}`);
     searchdata.current.value = "";
+  };
+  const handlelogout = () => {
+    sessionStorage.removeItem("userid");
+    setmailverify(false);
+    toast.success("loggedOut successfully");
+    navi("/");
   };
   return (
     <>
@@ -111,12 +128,65 @@ const Header = () => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeWidth="2"
                 d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
               />
             </svg>
           </button>
+          <div className="flex gap-7 mx-2 lg:flex max-lg:hidden">
+            <div className="relative ">
+              <button onClick={() => setaccountpopup(!accountpopup)}>
+                <RiAccountCircleFill className="size-12 text-amber-500" />
+              </button>
+              {accountpopup && (
+                <div className="absolute top-16 -right-1 text-left bg-white shadow-xl rounded-xl p-5 w-36 h-36 flex flex-col gap-2 items-end ">
+                  {mailverify && (
+                    <p>
+                      <span className="text-xl  font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        {userid}
+                      </span>
+                    </p>
+                  )}
+                  <NavLink
+                    to={"/register"}
+                    onClick={() => setaccountpopup(!accountpopup)}
+                  >
+                    <span className="text-xl  font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                      Register
+                    </span>
+                  </NavLink>
+                  {mailverify ? (
+                    <button
+                      onClick={() => {
+                        setmenu(false);
+                        toggleScrollLock(!isScrollLocked);
+                        handlelogout();
+                      }}
+                    >
+                      {" "}
+                      <span className="text-xl font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        Logout
+                      </span>
+                    </button>
+                  ) : (
+                    <NavLink
+                      to={"/Login"}
+                      onClick={() => {
+                        setmenu(false);
+                        toggleScrollLock(!isScrollLocked);
+                      }}
+                    >
+                      {" "}
+                      <span className="text-xl font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        Login
+                      </span>
+                    </NavLink>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
           {!search && (
             <button
               onClick={() => setsearch(true)}
@@ -133,13 +203,14 @@ const Header = () => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeWidth="2"
                   d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
                 />
               </svg>
             </button>
           )}
+
           {search && (
             <div className="flex h-14  gap-3 items-center ">
               <button
@@ -157,9 +228,9 @@ const Header = () => {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M5 12h14M5 12l4-4m-4 4 4 4"
                   />
                 </svg>
@@ -190,8 +261,8 @@ const Header = () => {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeWidth="2"
                     d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
                   />
                 </svg>
@@ -217,16 +288,16 @@ const Header = () => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M18 6H6m12 4H6m12 4H6m12 4H6"
                 />
               </svg>
             </button>
           )}
           {menu && (
-            <div className=" absolute top-0 left-0 bg-white shadow-slate-300 lg:hidden  dark:bg-slate-900  z-10 p-20   h-screen flex flex-col w-full gap-7 flex-wrap ">
+            <div className=" absolute top-0 left-0 bg-white shadow-slate-300 lg:hidden  dark:bg-slate-900  z-10 p-20   h-screen flex flex-col w-full gap-6 flex-wrap ">
               <div className="w-full flex justify-end pb-10 ">
                 <button
                   className="border-2 shadow-slate-300 p-2 rounded-full  "
@@ -246,9 +317,9 @@ const Header = () => {
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M6 18 17.94 6M18 18 6.06 6"
                     />
                   </svg>
@@ -318,6 +389,45 @@ const Header = () => {
               >
                 <span className="text-xl font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
                   Favourite
+                </span>
+              </NavLink>
+              {mailverify ? (
+                <button
+                  className="w-fit"
+                  onClick={() => {
+                    setmenu(false);
+                    toggleScrollLock(!isScrollLocked);
+                    handlelogout();
+                  }}
+                >
+                  {" "}
+                  <span className="text-xl text-left font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                    Logout
+                  </span>
+                </button>
+              ) : (
+                <NavLink
+                  to={"/Login"}
+                  onClick={() => {
+                    setmenu(false);
+                    toggleScrollLock(!isScrollLocked);
+                  }}
+                >
+                  {" "}
+                  <span className="text-xl font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                    Login
+                  </span>
+                </NavLink>
+              )}
+              <NavLink
+                to={"/register"}
+                onClick={() => {
+                  setmenu(false);
+                  toggleScrollLock(!isScrollLocked);
+                }}
+              >
+                <span className="text-xl font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                  Register
                 </span>
               </NavLink>
             </div>

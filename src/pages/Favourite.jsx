@@ -1,17 +1,28 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 import Card from "../Components/Card";
-
+import axios from "axios";
 const Favourite = () => {
-  const item = useSelector((state) => state.favourState.favourlist);
-  console.log(item);
+  const [item, setitem] = useState([]);
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  useEffect(() => {
+    async function fetchdata() {
+      const data = await axios.get(`${BACKEND_URL}/userdata/cuser`);
+      if (data) {
+        setitem(data.data);
+      }
+    }
+    fetchdata();
+  }, []);
+
   return (
     <div className="flex flex-wrap">
-      {item.map((_data) => (
-        <Card key={_data.id} movie={_data} />
-      ))}
+      {item.length > 0 &&
+        item.map((_data) =>
+          _data.moviedetail.map((dataa) => (
+            <Card key={dataa.id} movie={dataa} />
+          ))
+        )}
     </div>
   );
 };
-
 export default Favourite;

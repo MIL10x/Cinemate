@@ -7,6 +7,8 @@ import {
   Favourite,
 } from "../pages/Indexp";
 import { Routes, Route } from "react-router-dom";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 const Allroutes = () => {
   return (
@@ -27,6 +29,8 @@ const Allroutes = () => {
             element={<MovieList apipath="movie/upcoming" />}
           />
           <Route path="/movies/:id" element={<ListDetail />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/Favourite" element={<Favourite />} />
           <Route path="/Search" element={<Search apipath="search/movie" />} />

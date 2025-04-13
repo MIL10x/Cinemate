@@ -2,19 +2,19 @@ import { React, useEffect } from "react";
 import { useParams } from "react-router";
 import { useState } from "react";
 import cine from "../assets/cine.jpg";
-import { useDispatch } from "react-redux";
-import { add, remove } from "../store/favouriteslice";
-import { useSelector } from "react-redux";
+import axios from "axios";
 
 const ListDetail = () => {
   const [itemcheck, setitemcheck] = useState(false);
-  const dispatch = useDispatch();
   const API_KEY = import.meta.env.VITE_API_KEY;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const params = useParams();
   const [data, setdata] = useState({});
   const [videodata, setvideodata] = useState(null);
   const [popup, setpopup] = useState(false);
   const [videokey, setvideokey] = useState("");
+  const [uuid, setuuid] = useState("");
+
   const image = data.backdrop_path
     ? `https://image.tmdb.org/t/p/original${data.backdrop_path}`
     : cine;
@@ -42,6 +42,66 @@ const ListDetail = () => {
     }
   }, [params.id]);
 
+  const [fetchid, setfetchid] = useState([]);
+  const userid = sessionStorage.getItem("userid");
+
+  useEffect(() => {
+    async function fethcidd() {
+      const data = await axios.get(`${BACKEND_URL}/userdata/cuser/${userid}`);
+      if (data.status === 200) {
+        setfetchid(data.data);
+      }
+    }
+    fethcidd();
+  }, []);
+
+  useEffect(() => {
+    if (fetchid) {
+      const tdata = fetchid.map((data) =>
+        data.moviedetail ? data.moviedetail.length : 0
+      );
+      if (tdata > 0) {
+        const itemfound = fetchid.map((dataa) =>
+          dataa.moviedetail.some((_data) => _data.title === data.original_title)
+        );
+
+        setitemcheck(itemfound[0]);
+      }
+    }
+  }, [fetchid, userid, data.original_title]);
+
+  console.log(itemcheck);
+
+  const uuide = fetchid.map((data) => data._id);
+
+  const handledispatch = () => {
+    if (itemcheck) {
+      async function updatadata() {
+        const updatadat = await axios.put(
+          `${BACKEND_URL}/userdata/cuser/delete/${uuide[0]}`,
+          {
+            title: data.original_title,
+          }
+        );
+      }
+      updatadata();
+      setitemcheck(false);
+    } else {
+      async function updatadata() {
+        const updatadat = await axios.put(
+          `${BACKEND_URL}/userdata/cuser/add/${uuide[0]}`,
+          {
+            Id: data.id,
+            Title: data.original_title,
+            BackdropPath: data.backdrop_path,
+            Overview: data.overview,
+          }
+        );
+      }
+      updatadata();
+      setitemcheck(true);
+    }
+  };
   useEffect(() => {
     if (!params.id) return;
 
@@ -52,7 +112,6 @@ const ListDetail = () => {
         Authorization: `Bearer ${API_KEY}`,
       },
     };
-
     async function fetchVideoData() {
       const response = await fetch(
         `https://api.themoviedb.org/3/movie/${params.id}/videos?language=en-US`,
@@ -61,30 +120,12 @@ const ListDetail = () => {
       const videodatahit = await response.json();
       setvideodata(videodatahit.results);
     }
-
     fetchVideoData();
   }, [params.id]);
-
-  const item = useSelector((state) => state.favourState.favourlist);
-  useEffect(() => {
-    const itemfound = item.some(
-      (_data) => _data.original_title === data.original_title
-    );
-    setitemcheck(itemfound);
-  }, [item, data.id]);
-  console.log(itemcheck);
-  const handledispatch = () => {
-    if (itemcheck) {
-      dispatch(remove(data));
-    } else {
-      dispatch(add(data));
-    }
-  };
 
   if (!data.original_title || !videodata) {
     return <div>Loading...</div>;
   }
-
   return (
     <>
       <section className="grid gap-20 grid-cols-2 max-lg:grid-cols-1 dark:text-white mt-20">
@@ -94,7 +135,7 @@ const ListDetail = () => {
             <button onClick={handledispatch}>
               {itemcheck ? (
                 <svg
-                  class="w-[30px] h-[30px] text-amber-500"
+                  className="w-[30px] h-[30px] text-amber-500"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -106,7 +147,7 @@ const ListDetail = () => {
                 </svg>
               ) : (
                 <svg
-                  class="w-[30px] h-[30px] text-amber-500"
+                  className="w-[30px] h-[30px] text-amber-500"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -116,7 +157,7 @@ const ListDetail = () => {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-width="2"
+                    strokeWidth="2"
                     d="M11.083 5.104c.35-.8 1.485-.8 1.834 0l1.752 4.022a1 1 0 0 0 .84.597l4.463.342c.9.069 1.255 1.2.556 1.771l-3.33 2.723a1 1 0 0 0-.337 1.016l1.03 4.119c.214.858-.71 1.552-1.474 1.106l-3.913-2.281a1 1 0 0 0-1.008 0L7.583 20.8c-.764.446-1.688-.248-1.474-1.106l1.03-4.119A1 1 0 0 0 6.8 14.56l-3.33-2.723c-.698-.571-.342-1.702.557-1.771l4.462-.342a1 1 0 0 0 .84-.597l1.753-4.022Z"
                   />
                 </svg>
@@ -157,9 +198,9 @@ const ListDetail = () => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M14 6H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1Zm7 11-6-2V9l6-2v10Z"
                 />
               </svg>
@@ -231,9 +272,9 @@ const ListDetail = () => {
                     viewBox="0 0 24 24"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm7.707-3.707a1 1 0 0 0-1.414 1.414L10.586 12l-2.293 2.293a1 1 0 1 0 1.414 1.414L12 13.414l2.293 2.293a1 1 0 0 0 1.414-1.414L13.414 12l2.293-2.293a1 1 0 0 0-1.414-1.414L12 10.586 9.707 8.293Z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
                 </button>
@@ -248,7 +289,7 @@ const ListDetail = () => {
                       height: "100%",
                       width: "100%",
                     }}
-                  ></iframe>
+                  />
                 </div>
                 <div className="bg-black dark:bg-gray-800 w-fit p-3 h-[50%] max-lg:h-fit max-lg:w-full overflow-hidden overflow-y-scroll  ">
                   <div>
