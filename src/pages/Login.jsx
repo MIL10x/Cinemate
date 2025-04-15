@@ -35,7 +35,7 @@ const Login = () => {
   };
 
   return (
-    <div className="mx-auto my-20  ">
+    <div className="mx-auto my-20 dark:text-white ">
       <p className="text-5xl font-bold text-amber-500">Login</p>
       <div className="w-full border-gray-500 border-2 h-[400px] p-10 rounded-xl my-10 flex flex-col gap-2">
         <p>Name</p>
@@ -44,7 +44,7 @@ const Login = () => {
           name=""
           value={name}
           onChange={(e) => setname(e.target.value)}
-          className="h-10 my-5 outline-none border-b-2 border-gray-200"
+          className="h-10 my-5 outline-none border-b-2 dark:bg-transparent border-gray-200"
           id=""
         />
         <p>UId</p>
@@ -53,7 +53,7 @@ const Login = () => {
           name=""
           value={UID}
           onChange={(e) => setUID(e.target.value)}
-          className="h-10 my-5 outline-none border-b-2 border-gray-200"
+          className="h-10 my-5 outline-none border-b-2 dark:bg-transparent border-gray-200"
           id=""
         />
         <button
