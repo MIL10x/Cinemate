@@ -140,7 +140,7 @@ const Header = () => {
                 <RiAccountCircleFill className="size-12 text-amber-500" />
               </button>
               {accountpopup && (
-                <div className="absolute top-16 -right-1 text-left bg-white shadow-xl rounded-xl p-5 w-36 h-36 flex flex-col gap-2 items-end ">
+                <div className="absolute top-16 -right-1 text-left  bg-white shadow-xl rounded-xl p-5 w-36 h-36 flex flex-col gap-2 items-end ">
                   {mailverify && (
                     <p>
                       <span className="text-xl  font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
@@ -152,7 +152,7 @@ const Header = () => {
                     to={"/register"}
                     onClick={() => setaccountpopup(!accountpopup)}
                   >
-                    <span className="text-xl  font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                    <span className="text-xl  font-normal text-gray-500 dark:hover:text-black hover:text-gray-900 ">
                       Register
                     </span>
                   </NavLink>
@@ -165,7 +165,7 @@ const Header = () => {
                       }}
                     >
                       {" "}
-                      <span className="text-xl font-normal text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                      <span className="text-xl font-normal text-gray-500 hover:text-gray-900 dark:hover:text-black">
                         Logout
                       </span>
                     </button>
