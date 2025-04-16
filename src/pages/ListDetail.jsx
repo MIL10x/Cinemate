@@ -69,8 +69,6 @@ const ListDetail = () => {
     }
   }, [fetchid, userid, data.original_title]);
 
-  console.log(itemcheck);
-
   const uuide = fetchid.map((data) => data._id);
 
   const handledispatch = () => {

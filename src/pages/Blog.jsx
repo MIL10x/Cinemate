@@ -21,7 +21,7 @@ const Blog = () => {
 
   const handleclose = async (name) => {
     const data = await axios.put(`${BACKEND_URL}/userdata/blogdata/${name}`);
-    console.log(data.status);
+
     setclose(!close);
   };
 
@@ -39,14 +39,12 @@ const Blog = () => {
       heading: title,
       para: suggestion,
     });
-    console.log(data.status);
 
     setitle("");
     setsuggestion("");
     setpopup(false);
   };
 
-  console.log(blogstore);
   const handleacclogin = () => {
     toast.error("please create an account and login");
   };

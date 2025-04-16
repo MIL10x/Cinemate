@@ -19,7 +19,6 @@ const Login = () => {
     dat();
   }, []);
 
-  console.log(logindata);
   const handlelogin = async () => {
     const namechec = logindata.some((data) => data.name == name);
     const UIDchec = logindata.some((data) => data.UID == UID);

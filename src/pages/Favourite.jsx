@@ -2,26 +2,36 @@ import React, { useEffect, useState } from "react";
 import Card from "../Components/Card";
 import axios from "axios";
 const Favourite = () => {
-  const [item, setitem] = useState([]);
+  const [item, setitem] = useState();
+  const [itemcheck, setitemcheck] = useState();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const userid = sessionStorage.getItem("userid");
   useEffect(() => {
     async function fetchdata() {
-      const data = await axios.get(`${BACKEND_URL}/userdata/cuser`);
+      const data = await axios.get(`${BACKEND_URL}/userdata/cuser/${userid}`);
       if (data) {
         setitem(data.data);
       }
     }
     fetchdata();
   }, []);
+  useEffect(() => {
+    if (item && userid) {
+      const tdata = item[0].moviedetail;
+
+      setitemcheck(tdata[0]);
+    }
+  }, [item, userid]);
 
   return (
     <div className="flex flex-wrap">
-      {item.length > 0 &&
-        item.map((_data) =>
-          _data.moviedetail.map((dataa) => (
-            <Card key={dataa.id} movie={dataa} />
-          ))
-        )}
+      {item && userid ? (
+        item[0].moviedetail.map((_data) => (
+          <Card key={_data.id} movie={_data} />
+        ))
+      ) : (
+        <p className="text-2xl font-bold">No Favourite found</p>
+      )}
     </div>
   );
 };

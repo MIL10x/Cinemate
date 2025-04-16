@@ -30,7 +30,6 @@ const Register = () => {
         UID,
       });
       navigate("/");
-      console.log(data.status);
     } else {
       toast.error("Your account is already regitered");
     }
