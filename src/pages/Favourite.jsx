@@ -26,11 +26,20 @@ const Favourite = () => {
   return (
     <div className="flex flex-wrap">
       {item && userid ? (
-        item[0].moviedetail.map((_data) => (
-          <Card key={_data.id} movie={_data} />
-        ))
+        item[0].moviedetail.length > 0 ? (
+          item[0].moviedetail.map((_data) => (
+            <Card key={_data.id} movie={_data} />
+          ))
+        ) : (
+          <p className="text-2xl font-bold">No Favourite found</p>
+        )
       ) : (
-        <p className="text-2xl font-bold">No Favourite found</p>
+        <div>
+          <p className="text-2xl font-bold">No Favourite found</p>
+          {!userid && (
+            <p>please login the account if you want to add favorite</p>
+          )}
+        </div>
       )}
     </div>
   );
