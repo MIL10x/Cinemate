@@ -24,7 +24,7 @@ const Favourite = () => {
   }, [item, userid]);
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap dark:text-white">
       {item && userid ? (
         item[0].moviedetail.length > 0 ? (
           item[0].moviedetail.map((_data) => (
