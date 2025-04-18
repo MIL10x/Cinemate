@@ -150,7 +150,9 @@ const Header = () => {
                   )}
                   <NavLink
                     to={"/register"}
-                    onClick={() => setaccountpopup(!accountpopup)}
+                    onClick={() => {
+                      setaccountpopup(!accountpopup);
+                    }}
                   >
                     <span className="text-xl  font-normal text-gray-500 dark:hover:text-black hover:text-gray-900 ">
                       Register
@@ -160,8 +162,9 @@ const Header = () => {
                     <button
                       onClick={() => {
                         setmenu(false);
-                        toggleScrollLock(!isScrollLocked);
+
                         handlelogout();
+                        setaccountpopup(!accountpopup);
                       }}
                     >
                       {" "}
@@ -174,7 +177,7 @@ const Header = () => {
                       to={"/Login"}
                       onClick={() => {
                         setmenu(false);
-                        toggleScrollLock(!isScrollLocked);
+                        setaccountpopup(!accountpopup);
                       }}
                     >
                       {" "}
