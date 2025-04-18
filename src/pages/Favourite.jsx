@@ -35,9 +35,10 @@ const Favourite = () => {
         )
       ) : (
         <div>
-          <p className="text-2xl font-bold">No Favourite found</p>
           {!userid && (
-            <p>please login the account if you want to add favorite</p>
+            <p className="p-10 text-xl">
+              please login the account if you want to add favorite
+            </p>
           )}
         </div>
       )}
