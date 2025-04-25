@@ -18,13 +18,13 @@ const Card = ({ movie }) => {
     <div>
       {movie.title && (
         <Link to={`/movies/${movie.id}`}>
-          <div className="w-[30vh] m-5 h-[45vh] max-lg:w-[90%] max-lg:h-[60vh]  text-wrap bg-white rounded-xl shadow-2xl dark:bg-slate-700 dark:text-white">
+          <div className="w-[30vh] m-5 h-[45vh] max-lg:w-[90%] max-lg:h-[60vh] text-wrap bg-white rounded-xl shadow-2xl dark:bg-slate-700 dark:text-white">
             <img src={image} alt="" className="rounded-t-xl shadow-xl" />
 
             <p className="text-xl px-5 py-5 font-bold">
               {movie.original_title || movie.title}
             </p>
-            <p className="px-8 text-lg  max-lg:text-[1rem] line-clamp-4 max-lg:line-clamp-3 ">
+            <p className="px-8 text-lg  max-lg:text-[1rem] line-clamp-4  ">
               {spliteddatai.length > 50
                 ? splteddatap + " ...more "
                 : movie.overview}
