@@ -24,7 +24,7 @@ const Card = ({ movie }) => {
             <p className="text-xl px-5 py-5 font-bold">
               {movie.original_title || movie.title}
             </p>
-            <p className="px-8 text-lg max-lg:text-[1rem] line-clamp-4 ">
+            <p className="px-8 text-lg sm:text-sm max-lg:text-[1rem] line-clamp-4 ">
               {spliteddatai.length > 50
                 ? splteddatap + " ...more "
                 : movie.overview}
